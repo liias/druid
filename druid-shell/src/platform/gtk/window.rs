@@ -131,6 +131,7 @@ pub(crate) struct WindowBuilder {
     resizable: bool,
     show_titlebar: bool,
     transparent: bool,
+    icon_file_path: Option<String>
 }
 
 #[derive(Clone)]
@@ -189,6 +190,7 @@ impl WindowBuilder {
             app,
             handler: None,
             title: String::new(),
+            icon_file_path: None,
             menu: None,
             size: Size::new(500.0, 400.0),
             position: None,
@@ -245,6 +247,10 @@ impl WindowBuilder {
         self.menu = Some(menu);
     }
 
+    pub fn set_icon_file_path(&mut self, icon_file_path: String) {
+        self.icon_file_path = Some(icon_file_path);
+    }
+
     pub fn build(self) -> Result<WindowHandle, ShellError> {
         let handler = self
             .handler
@@ -276,6 +282,10 @@ impl WindowBuilder {
 
         let accel_group = AccelGroup::new();
         window.add_accel_group(&accel_group);
+
+        if let Some(file_path) = self.icon_file_path {
+            window.set_icon_from_file(file_path);
+        }
 
         let vbox = gtk::Box::new(gtk::Orientation::Vertical, 0);
         window.add(&vbox);

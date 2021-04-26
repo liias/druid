@@ -863,6 +863,10 @@ impl<T: Data> AppState<T> {
         pending.title.resolve(&data, &env);
         builder.set_title(pending.title.display_text().to_string());
 
+        if let Some(file_path) = pending.icon_file_path.as_deref() {
+            builder.set_icon_file_path(file_path);
+        }
+
         let platform_menu = pending
             .menu
             .as_mut()

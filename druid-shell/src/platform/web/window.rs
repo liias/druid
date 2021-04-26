@@ -74,6 +74,7 @@ macro_rules! get_modifiers {
 pub(crate) struct WindowBuilder {
     handler: Option<Box<dyn WinHandler>>,
     title: String,
+    icon_file_path: Option<String>,
     cursor: Cursor,
     menu: Option<Menu>,
 }
@@ -349,6 +350,7 @@ impl WindowBuilder {
         WindowBuilder {
             handler: None,
             title: String::new(),
+            icon_file_path: None,
             cursor: Cursor::Arrow,
             menu: None,
         }
@@ -393,6 +395,10 @@ impl WindowBuilder {
 
     pub fn set_title<S: Into<String>>(&mut self, title: S) {
         self.title = title.into();
+    }
+
+    pub fn set_icon_file_path(&mut self, icon_file_path: String) {
+        self.icon_file_path = Some(icon_file_path);
     }
 
     pub fn set_menu(&mut self, menu: Menu) {

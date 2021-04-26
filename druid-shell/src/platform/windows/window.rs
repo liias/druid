@@ -90,6 +90,7 @@ pub(crate) struct WindowBuilder {
     app: Application,
     handler: Option<Box<dyn WinHandler>>,
     title: String,
+    icon_file_path: Option<String>,
     menu: Option<Menu>,
     present_strategy: PresentStrategy,
     resizable: bool,
@@ -1225,6 +1226,7 @@ impl WindowBuilder {
             app,
             handler: None,
             title: String::new(),
+            icon_file_path: None,
             menu: None,
             resizable: true,
             show_titlebar: true,
@@ -1273,6 +1275,10 @@ impl WindowBuilder {
 
     pub fn set_title<S: Into<String>>(&mut self, title: S) {
         self.title = title.into();
+    }
+
+    pub fn set_icon_file_path(&mut self, icon_file_path: String) {
+        self.icon_file_path = Some(icon_file_path);
     }
 
     pub fn set_menu(&mut self, menu: Menu) {

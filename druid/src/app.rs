@@ -81,6 +81,7 @@ pub struct WindowDesc<T> {
 pub struct PendingWindow<T> {
     pub(crate) root: Box<dyn Widget<T>>,
     pub(crate) title: LabelText<T>,
+    pub(crate) icon_file_path: Option<String>,
     pub(crate) transparent: bool,
     pub(crate) menu: Option<MenuManager<T>>,
     pub(crate) size_policy: WindowSizePolicy, // This is copied over from the WindowConfig
@@ -97,6 +98,7 @@ impl<T: Data> PendingWindow<T> {
         PendingWindow {
             root: Box::new(root),
             title: LocalizedString::new("app-name").into(),
+            icon_file_path: None,
             menu: MenuManager::platform_default(),
             transparent: false,
             size_policy: WindowSizePolicy::User,
@@ -111,6 +113,11 @@ impl<T: Data> PendingWindow<T> {
     /// [`LocalizedString`]: struct.LocalizedString.html
     pub fn title(mut self, title: impl Into<LabelText<T>>) -> Self {
         self.title = title.into();
+        self
+    }
+
+    pub fn icon_file_path(mut self, icon_file_path: String) -> Self {
+        self.icon_file_path = Some(icon_file_path);
         self
     }
 
@@ -469,6 +476,11 @@ impl<T: Data> WindowDesc<T> {
     /// [`LocalizedString`]: struct.LocalizedString.html
     pub fn title(mut self, title: impl Into<LabelText<T>>) -> Self {
         self.pending = self.pending.title(title);
+        self
+    }
+
+    pub fn icon_file_path(mut self, icon_file_path: String) -> Self {
+        self.pending = self.pending.icon_file_path(icon_file_path);
         self
     }
 

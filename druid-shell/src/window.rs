@@ -497,6 +497,10 @@ impl WindowBuilder {
         self.0.set_title(title)
     }
 
+    pub fn set_icon_file_path(&mut self, icon_file_path: &str) {
+        self.0.set_icon_file_path(String::from(icon_file_path))
+    }
+
     /// Set the window's menu.
     pub fn set_menu(&mut self, menu: Menu) {
         self.0.set_menu(menu.into_inner())

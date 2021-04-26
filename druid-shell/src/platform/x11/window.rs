@@ -100,6 +100,7 @@ pub(crate) struct WindowBuilder {
     app: Application,
     handler: Option<Box<dyn WinHandler>>,
     title: String,
+    icon_file_path: Option<String>,
     size: Size,
 
     // TODO: implement min_size for X11
@@ -113,6 +114,7 @@ impl WindowBuilder {
             app,
             handler: None,
             title: String::new(),
+            icon_file_path: None,
             size: Size::new(500.0, 400.0),
             min_size: Size::new(0.0, 0.0),
         }
@@ -157,6 +159,10 @@ impl WindowBuilder {
 
     pub fn set_title<S: Into<String>>(&mut self, title: S) {
         self.title = title.into();
+    }
+
+    pub fn set_icon_file_path(&mut self, icon_file_path: String) {
+        self.icon_file_path = Some(icon_file_path);
     }
 
     pub fn set_menu(&mut self, _menu: Menu) {

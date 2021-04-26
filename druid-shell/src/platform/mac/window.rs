@@ -118,6 +118,7 @@ impl Default for WindowHandle {
 pub(crate) struct WindowBuilder {
     handler: Option<Box<dyn WinHandler>>,
     title: String,
+    icon_file_path: Option<String>,
     menu: Option<Menu>,
     size: Size,
     min_size: Option<Size>,
@@ -171,6 +172,7 @@ impl WindowBuilder {
         WindowBuilder {
             handler: None,
             title: String::new(),
+            icon_file_path: None,
             menu: None,
             size: Size::new(500., 400.),
             min_size: None,
@@ -221,6 +223,10 @@ impl WindowBuilder {
 
     pub fn set_title(&mut self, title: impl Into<String>) {
         self.title = title.into();
+    }
+
+    pub fn set_icon_file_path(&mut self, icon_file_path: String) {
+        self.icon_file_path = Some(icon_file_path);
     }
 
     pub fn set_menu(&mut self, menu: Menu) {
